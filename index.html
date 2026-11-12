@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Suellen | Nosso Amor</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: '#B76E79',
+                        softPink: '#FFF0F5',
+                        deepRose: '#8B263E',
+                        blushPink: '#FFD1DC',
+                        romanticRed: '#E63946',
+                        warmGold: '#D4AF37'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        cursive: ['"Dancing Script"', 'cursive'],
+                        handwritten: ['"Caveat"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff5f6 0%, #ffdbe3 50%, #fff0f3 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animação de Corações Flutuantes */
+        .heart-particle {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 10;
+            animation: floatUp 8s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.7;
+            }
+            85% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-115vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Polaroid Effect */
+        .polaroid {
+            background: white;
+            padding: 12px 12px 24px 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 0 20px 30px -10px rgba(230, 57, 70, 0.25);
+            z-index: 20;
+        }
+
+        /* Glassmorphic Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Pulsing Glow */
+        .pulse-heart {
+            animation: pulseGlow 1.8s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px rgba(230, 57, 70, 0.4));
+            }
+            100% {
+                transform: scale(1.15);
+                filter: drop-shadow(0 0 20px rgba(230, 57, 70, 0.8));
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff0f3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f472b6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-sans selection:bg-rose-200 selection:text-rose-900">
+
+    <!-- Container de Corações Animados -->
+    <div id="heartsContainer" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Header / Hero Section -->
+    <header class="relative z-10 pt-12 pb-8 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full glass-card text-rose-600 font-medium text-sm shadow-sm border border-rose-200/50">
+                <span><i class="fa-solid fa-heart mr-1.5 text-rose-500"></i>Nosso Espaço Especial</span>
+                
+            </div>
+            
+            <!-- Título Principal sem Subtítulo -->
+            <h1 id="mainTitle" class="text-4xl sm:text-5xl md:text-6xl font-cursive font-bold text-rose-900 mb-8 drop-shadow-sm px-4 leading-tight">
+                Para meu primeiro e único amor, Suellen
+            </h1>
+            
+            <!-- Contador de Tempo Juntos -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 shadow-xl max-w-3xl mx-auto border border-white/80">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <h2 class="text-lg md:text-xl font-medium text-gray-700">
+                        Juntos desde:
+                    </h2>
+                
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="timerGrid">
+                    <div class="bg-white/80 rounded-2xl p-4 shadow-sm border border-rose-100 flex flex-col items-center">
+                        <span id="days" class="text-3xl md:text-5xl font-bold text-rose-600 font-mono">00</span>
+                        <span class="text-xs md:text-sm text-gray-500 font-medium mt-1">Dias</span>
+                    </div>
+                    <div class="bg-white/80 rounded-2xl p-4 shadow-sm border border-rose-100 flex flex-col items-center">
+                        <span id="hours" class="text-3xl md:text-5xl font-bold text-rose-600 font-mono">00</span>
+                        <span class="text-xs md:text-sm text-gray-500 font-medium mt-1">Horas</span>
+                    </div>
+                    <div class="bg-white/80 rounded-2xl p-4 shadow-sm border border-rose-100 flex flex-col items-center">
+                        <span id="minutes" class="text-3xl md:text-5xl font-bold text-rose-600 font-mono">00</span>
+                        <span class="text-xs md:text-sm text-gray-500 font-medium mt-1">Minutos</span>
+                    </div>
+                    <div class="bg-white/80 rounded-2xl p-4 shadow-sm border border-rose-100 flex flex-col items-center">
+                        <span id="seconds" class="text-3xl md:text-5xl font-bold text-rose-600 font-mono">00</span>
+                        <span class="text-xs md:text-sm text-gray-500 font-medium mt-1">Segundos</span>
+                    </div>
+                </div>
+
+                <p id="displayStartDate" class="text-xs text-rose-500/80 mt-4 italic">
+                    <i class="fa-regular fa-calendar-heart mr-1"></i> 10/10/2026
+                </p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Mural de Fotos Polaroid -->
+    <main class="relative z-10 max-w-6xl mx-auto px-4 mb-20">
+        <div class="text-center mb-10">
+            <h2 class="text-4xl font-cursive font-bold text-rose-900 mb-2">Nosso Mural de Fotos</h2>
+            <p class="text-gray-600 text-sm max-w-md mx-auto">
+
+            </p>
+            
+        </div>
+
+        <!-- Grid de Polaroids -->
+        <div id="grid-polaroids" class="flex flex-wrap justify-center gap-4 items-center">
+    <img src="susu.jpg" alt="Foto da Susu" class="w-64 h-auto object-cover rounded-lg shadow-md">
+    <img src="fotosu.jpg" alt="" class="w-64 h-auto object-cover rounded-lg shadow-md">
+    <img src="moto.jpg" alt="" class="w-64 h-auto object-cover rounded-lg shadow-md">
+    <img src="momo.jpg" alt="" class="w-64 h-auto object-cover rounded-lg shadow-md">
+    <img src="sususu.jpg" alt="" class="w-64 h-auto object-cover rounded-lg shadow-md">
+    <img src="cimiterio.jpg" alt="" class="w-64 h-auto object-cover rounded-lg shadow-md">
+    
+</div>
+</div>
+    </main>
+
+    <!-- Seção Carta de Amor -->
+    <section class="relative z-10 max-w-3xl mx-auto px-4 mb-24">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-cursive font-bold text-rose-900 mb-2">Uma Carta Para Você</h2>
+            <p class="text-gray-600 text-sm">Mensagem do meu coração para o seu.</p>
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 md:p-10 shadow-2xl border border-white relative overflow-hidden">
+
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center text-rose-500 text-2xl mb-6 shadow-inner">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+
+                <div class="w-full bg-amber-50/80 p-6 md:p-8 rounded-2xl border border-amber-200/60 shadow-sm relative font-handwritten text-xl md:text-2xl text-gray-800 leading-relaxed">
+                    <div class="absolute -top-3 left-6 bg-rose-500 text-white text-xs font-sans px-3 py-0.5 rounded-full shadow-sm">
+                        Para minha Susuzete❤️
+                    </div>
+                     
+                    <p id="letterContent" class="whitespace-pre-line">
+Oii amoreco, fiz esse cantinho aqui só pra te lembrar como você é especial pra mim e como eu amo você. Você é uma pessoa maravilhosa, estar ao seu lado faz minha vida ter mais sentido, e eu quero que vc esteja em cada momento dela!!
+ Hoje nós completmos 1 mês de namoro, mas na verdade são anos de conexão. Espero que essa lembrncinha traga um sorriso ao seu rosto, assim como você traz luz para todos os meus dias.
+
+Te amo e te adoro infinitamente❤️
+                    </p>
+
+                    <div class="mt-6 text-right font-cursive text-2xl text-rose-700">
+                        Com todo o meu amor ❤️
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 text-center py-8 border-t border-rose-200/50 glass-card">
+        <p class="text-sm text-gray-600 font-medium">
+            Feito com todo o amor para minha cuiudetekkk <span class="text-rose-600 font-bold"></span> ✨
+        </p>
+    </footer>
+
+    <!-- MODAIS -->
+
+    <!-- Modal Editar Título -->
+    <div id="editTitleModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal('editTitleModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-cursive font-bold text-rose-900 mb-4 text-center">Editar Título Principal</h3>
+            <form onsubmit="handleSaveTitle(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Título</label>
+                    <input type="text" id="titleInput" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none font-cursive text-xl">
+                </div>
+                <div class="pt-2 flex gap-3">
+                    <button type="button" onclick="closeModal('editTitleModal')" class="w-1/2 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="w-1/2 py-2 text-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-medium shadow">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Editar Data -->
+    <div id="editDateModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal('editDateModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-cursive font-bold text-rose-900 mb-4 text-center">Editar Data Inicial</h3>
+            <form onsubmit="handleSaveDate(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Selecione a Data de Início</label>
+                    <input type="date" id="dateInput" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+                </div>
+                <div class="pt-2 flex gap-3">
+                    <button type="button" onclick="closeModal('editDateModal')" class="w-1/2 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="w-1/2 py-2 text-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-medium shadow">Salvar Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ampliar Foto -->
+    <div id="viewModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative">
+            <button onclick="closeModal('viewModal')" class="absolute top-3 right-3 z-10 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="p-4 bg-gray-50">
+                <img id="modalImage" src="" alt="Foto" class="w-full h-80 object-cover rounded-xl shadow">
+            </div>
+            <div class="p-6 text-center">
+                <p id="modalCaption" class="font-handwritten text-3xl text-gray-800 mb-2"></p>
+                <p id="modalDate" class="text-xs text-rose-500 font-medium mb-4"></p>
+                <button id="deletePhotoBtn" class="text-xs text-red-500 hover:text-red-700 font-medium px-3 py-1.5 rounded-lg border border-red-200 hover:bg-red-50 transition">
+                    <i class="fa-solid fa-trash mr-1"></i> Remover Foto
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Foto -->
+    <div id="addPhotoModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal('addPhotoModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-cursive font-bold text-rose-900 mb-4 text-center">Nova Lembrança</h3>
+            <form onsubmit="handleAddPhoto(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">URL da Imagem</label>
+                    <input type="url" id="photoUrl" placeholder="https://exemplo.com/sua-foto.jpg" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Legenda</label>
+                    <input type="text" id="photoCaption" placeholder="Ex: Nosso passeio..." required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Data/Momento</label>
+                    <input type="text" id="photoDate" placeholder="Ex: 10/10/2026" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+                </div>
+                <div class="pt-2 flex gap-3">
+                    <button type="button" onclick="closeModal('addPhotoModal')" class="w-1/2 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="w-1/2 py-2 text-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-medium shadow">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Editar Carta -->
+    <div id="editLetterModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal('editLetterModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-cursive font-bold text-rose-900 mb-4 text-center">Editar Carta de Amor</h3>
+            <form onsubmit="handleSaveLetter(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Sua Mensagem</label>
+                    <textarea id="letterInput" rows="7" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none font-sans leading-relaxed"></textarea>
+                </div>
+                <div class="pt-2 flex gap-3">
+                    <button type="button" onclick="closeModal('editLetterModal')" class="w-1/2 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="w-1/2 py-2 text-sm bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-medium shadow">Salvar Carta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data padrão: 10/10/2026
+        let startDate = new Date(localStorage.getItem('suellen_startDate') || '2026-10-10T00:00:00');
+
+        const defaultPhotos = [
+            {
+                id: 1,
+                url: 'https://photos.app.goo.gl/JLj89tpgCnPZuRAi8',
+                caption: 'Nosso dia inesquecível ❤️',
+                date: '10/10/2026',
+                rotation: -3
+            },
+            {
+                id: 2,
+                url: 'susu.JPG',
+                caption: 'O sorriso mais lindo!',
+                date: 'Amor Infinito',
+                rotation: 2
+            },
+            {
+                id: 3,
+                url: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=800&auto=format&fit=crop',
+                caption: 'Porto seguro.',
+                date: 'Para sempre',
+                rotation: -2
+            },
+            {
+                id: 4,
+                url: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=800&auto=format&fit=crop',
+                caption: 'Com você Suellen ✨',
+                date: 'Momentos',
+                rotation: 4
+            }
+        ];
+
+        let photos = JSON.parse(localStorage.getItem('suellen_photos')) || defaultPhotos;
+
+        // --- CONTADOR ---
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff < 0) {
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('minutes').innerText = "00";
+                document.getElementById('seconds').innerText = "00";
+                return;
+            }
+
+            const seconds = Math.floor((diff / 1000) % 60);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateTimer, 1000);
+
+        function updateDisplayDate() {
+            const formatted = startDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('displayStartDate').innerHTML = `<i class="fa-regular fa-calendar-heart mr-1"></i> Desde ${formatted}`;
+        }
+
+        // --- CORAÇÕES ---
+        function createHeart() {
+            const container = document.getElementById('heartsContainer');
+            if (!container) return;
+
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            const icons = ['fa-heart', 'fa-heart text-rose-300', 'fa-heart text-pink-400', 'fa-heart text-rose-500'];
+            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            const size = Math.random() * 20 + 12;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 5 + 6;
+
+            heart.innerHTML = `<i class="fa-solid ${randomIcon}"></i>`;
+            heart.style.left = `${left}vw`;
+            heart.style.fontSize = `${size}px`;
+            heart.style.animationDuration = `${duration}s`;
+
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+        setInterval(createHeart, 600);
+
+        // --- POLAROIDS ---
+        function renderPhotos() {
+            const grid = document.getElementById('polaroidGrid');
+            grid.innerHTML = '';
+            photos.forEach(photo => {
+                const card = document.createElement('div');
+                card.className = `polaroid rounded-sm transform transition hover:z-20`;
+                card.style.transform = `rotate(${photo.rotation || 0}deg)`;
+                card.innerHTML = `
+                    <div class="overflow-hidden h-64 rounded-sm mb-3 bg-gray-100">
+                        <img src="${photo.url}" alt="${photo.caption}" 
+                             onerror="this.src='https://placehold.co/600x600/ffd1dc/8b263e?text=Nosso+Amor'"
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="text-center">
+                        <p class="font-handwritten text-2xl text-gray-800 leading-tight">${photo.caption}</p>
+                        ${photo.date ? `<p class="text-[11px] text-rose-500 font-medium mt-1">${photo.date}</p>` : ''}
+                    </div>
+                `;
+                card.onclick = () => openViewModal(photo);
+                grid.appendChild(card);
+            });
+        }
+
+        function openViewModal(photo) {
+            document.getElementById('modalImage').src = photo.url;
+            document.getElementById('modalCaption').innerText = photo.caption;
+            document.getElementById('modalDate').innerText = photo.date || '';
+            document.getElementById('deletePhotoBtn').onclick = () => deletePhoto(photo.id);
+            openModal('viewModal');
+        }
+
+        function openAddPhotoModal() { openModal('addPhotoModal'); }
+
+        function handleAddPhoto(event) {
+            event.preventDefault();
+            const url = document.getElementById('photoUrl').value.trim();
+            const caption = document.getElementById('photoCaption').value.trim();
+            const date = document.getElementById('photoDate').value.trim();
+
+            if (!url || !caption) return;
+
+            photos.unshift({
+                id: Date.now(),
+                url, caption, date: date || 'Lembrança Especial',
+                rotation: Math.floor(Math.random() * 8) - 4
+            });
+            savePhotos();
+            renderPhotos();
+            closeModal('addPhotoModal');
+            document.getElementById('photoUrl').value = '';
+            document.getElementById('photoCaption').value = '';
+            document.getElementById('photoDate').value = '';
+        }
+
+        function deletePhoto(id) {
+            photos = photos.filter(p => p.id !== id);
+            savePhotos();
+            renderPhotos();
+            closeModal('viewModal');
+        }
+
+        function savePhotos() {
+            localStorage.setItem('suellen_photos', JSON.stringify(photos));
+        }
+
+        // --- EDITAR TÍTULO ---
+        function loadTitle() {
+            const savedTitle = localStorage.getItem('suellen_title');
+            if (savedTitle) {
+                document.getElementById('mainTitle').innerText = savedTitle;
+            }
+        }
+
+        function openEditTitleModal() {
+            document.getElementById('titleInput').value = document.getElementById('mainTitle').innerText;
+            openModal('editTitleModal');
+        }
+
+        function handleSaveTitle(event) {
+            event.preventDefault();
+            const newTitle = document.getElementById('titleInput').value.trim();
+            if (newTitle) {
+                document.getElementById('mainTitle').innerText = newTitle;
+                localStorage.setItem('suellen_title', newTitle);
+                closeModal('editTitleModal');
+            }
+        }
+
+        // --- EDITAR DATA ---
+        function openEditDateModal() {
+            const year = startDate.getFullYear();
+            const month = String(startDate.getMonth() + 1).padStart(2, '0');
+            const day = String(startDate.getDate()).padStart(2, '0');
+            document.getElementById('dateInput').value = `${year}-${month}-${day}`;
+            openModal('editDateModal');
+        }
+
+        function handleSaveDate(event) {
+            event.preventDefault();
+            const val = document.getElementById('dateInput').value;
+            if (val) {
+                startDate = new Date(val + 'T00:00:00');
+                localStorage.setItem('suellen_startDate', startDate.toISOString());
+                updateDisplayDate();
+                updateTimer();
+                closeModal('editDateModal');
+            }
+        }
+
+        // --- CARTA ---
+        function loadLetter() {
+            const savedLetter = localStorage.getItem('suellen_letter');
+            if (savedLetter) {
+                document.getElementById('letterContent').innerText = savedLetter;
+            }
+        }
+
+        function openEditLetterModal() {
+            document.getElementById('letterInput').value = document.getElementById('letterContent').innerText;
+            openModal('editLetterModal');
+        }
+
+        function handleSaveLetter(event) {
+            event.preventDefault();
+            const newText = document.getElementById('letterInput').value.trim();
+            if (newText) {
+                document.getElementById('letterContent').innerText = newText;
+                localStorage.setItem('suellen_letter', newText);
+                closeModal('editLetterModal');
+            }
+        }
+
+        // --- MÚSICA ---
+        let isPlaying = false;
+        const audio = document.getElementById('romanticAudio');
+        const playIcon = document.getElementById('playIcon');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.className = 'fa-solid fa-play';
+            } else {
+                audio.play().then(() => {
+                    playIcon.className = 'fa-solid fa-pause';
+                }).catch(err => console.log(err));
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        window.onload = function() {
+            loadTitle();
+            updateDisplayDate();
+            updateTimer();
+            renderPhotos();
+            loadLetter();
+        };
+    </script>
+</body>
+</html>
